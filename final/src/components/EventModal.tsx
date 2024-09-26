@@ -2,6 +2,7 @@ import { useContext, useState, FormEvent } from 'react';
 import GlobalContext from '../context/GlobalContext';
 import { CSSTransition } from 'react-transition-group';
 
+//
 type CalendarEvent = {
     id: number;
     title: string;
@@ -12,11 +13,13 @@ type CalendarEvent = {
     
 };
 
+
 type Label = {
     name: string;
     color: string;
 };
 
+// Define the types for global  context properties
 type GlobalContextType = {
     setShowEventModal: (show: boolean) => void;
     daySelected: any; // You can replace `any` with the type from your date library (e.g., `moment.Moment`)
@@ -24,12 +27,14 @@ type GlobalContextType = {
     selectedEvent: CalendarEvent | null;
 };
 
+// Predefined labels of events and their colors
 const labelsClasses: Label[] = [
     { name: "Red Event", color: "hsl(0, 75%, 60%)" },
     { name: "Blue Event", color: "hsl(200, 80%, 50%)" },
     { name: "Green Event", color: "hsl(150, 80%, 30%)" }
 ];
 
+// Define the EventModal component allowing users to create and edit events
 export default function EventModal() {
     const {
         setShowEventModal, 
@@ -37,7 +42,8 @@ export default function EventModal() {
         dispatchedCalEvent, 
         selectedEvent,
     } = useContext(GlobalContext) as GlobalContextType;
-
+    
+    //set states... event title, label, start time, end time, all day
     const [title, setTitle] = useState<string>(selectedEvent ? selectedEvent.title : '');
     const [selectedLabel, setSelectedLabel] = useState<string>(
         selectedEvent
@@ -49,9 +55,11 @@ export default function EventModal() {
     const [isAllDay, setIsAllDay] = useState<boolean>(selectedEvent ? selectedEvent.isAllDay : false);
     const [error, setError] = useState<string | null>(null);
 
+    //handle submit updates
     function handleSubmit(e: FormEvent) {
         e.preventDefault();
 
+        //validation of start and end times
         if (!isAllDay) {
             if (!startTime || !endTime) {
                 setError("Both start time and end time are required for non-all-day events.");
@@ -66,22 +74,24 @@ export default function EventModal() {
 
         setError(null);
 
+        //create calendar event
         const calendarEvent: CalendarEvent = {
             title,
-            label: selectedLabel,
-            day: daySelected.valueOf(),
-            startTime: isAllDay ? null : startTime,
-            endTime: isAllDay ? null : endTime,
-            isAllDay,
-            id: selectedEvent ? selectedEvent.id : Date.now(),
+            label: selectedLabel, // store selected label
+            day: daySelected.valueOf(), // store selected day
+            startTime: isAllDay ? null : startTime, // store start time
+            endTime: isAllDay ? null : endTime, // store end time
+            isAllDay, // store if event is all day
+            id: selectedEvent ? selectedEvent.id : Date.now(), // store event id
         };
 
+        //update or push event
         if (selectedEvent) {
             dispatchedCalEvent({ type: "update", payload: calendarEvent });
         } else {
             dispatchedCalEvent({ type: "push", payload: calendarEvent });
         }
-
+        //close modal
         setShowEventModal(false);
     }
 
@@ -92,10 +102,12 @@ export default function EventModal() {
             classNames="modal"
             unmountOnExit
         >
+            {/* modal for creating editing events */}
             <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
                 <form className="bg-white rounded-lg shadow-lg w-10/12 max-w-sm p-4" onSubmit={handleSubmit}>
                     <header className="flex justify-between items-center mb-4">
                         <div className="flex items-center">
+                            {/* Button to submit the form (either add or edit) */}
                             {selectedEvent ? (
                                 <button 
                                     type="submit"
@@ -112,9 +124,11 @@ export default function EventModal() {
                                 </button>
                             )}
                         </div>
+                        {/* Display selected day */}
                         <p className="text-sm" style={{ color: '#555' }}>
                             {daySelected.format("MM/DD/YY")}
                         </p>
+                        {/* close button */}
                         <button onClick={() => setShowEventModal(false)} type="button">
                             <span className="material-icons-outlined text-gray-400"
                             >
@@ -122,7 +136,9 @@ export default function EventModal() {
                             </span>
                         </button> 
                     </header>
+                    {/* event title, label, start time, end time, all day */}
                     <div>
+                        {/*  */}
                         <div className="grid gap-y-4">
                             <div className="mb-4">
                                 <label className="block text-sm font-medium" style={{ color: '#777' }}>
@@ -138,6 +154,7 @@ export default function EventModal() {
                                     onChange={(e) => setTitle(e.target.value)}
                                 />
                             </div>
+                            {/* checkbox for all day */}
                             <div className="flex items-center mb-4">
                                 <input
                                     id="allDay"
@@ -150,6 +167,7 @@ export default function EventModal() {
                                     All Day?
                                 </label>
                             </div>
+                            {/* time for start and end time, hidden if all day */}
                             {!isAllDay && (
                                 <div className="grid grid-cols-2 gap-2">
                                     <div>
@@ -182,6 +200,7 @@ export default function EventModal() {
                                     </div>
                                 </div>
                             )}
+                            {/*  labels selection color coded */}
                             <div className="flex gap-x-2">
                                 {labelsClasses.map((label, i) => (
                                     <span 
@@ -199,9 +218,11 @@ export default function EventModal() {
                                 ))}
                             </div>
                         </div>
+                        {/* error message display */}
                         {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
                     </div>
                     <footer className="flex justify-between space-x-2 border-t p-3 mt-4">
+                        {/* conditional edit and delete button */}
                         {selectedEvent ? (
                             <>
                                 <button 
@@ -217,6 +238,7 @@ export default function EventModal() {
                                 >
                                     Edit
                                 </button>
+                                {/*  */}
                                 <button 
                                     type="button"
                                     onClick={() => {
@@ -240,6 +262,7 @@ export default function EventModal() {
                                     Delete
                                 </button>
                             </>
+                            
                         ) : (
                             <button 
                                 type="submit"

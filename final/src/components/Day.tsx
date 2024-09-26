@@ -3,6 +3,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import GlobalContext from '../context/GlobalContext';
 import OverflowModal from './OverflowModal';
 
+// Define the shape of the event
 type Event = {
     title: string;
     day: string;
@@ -11,13 +12,14 @@ type Event = {
     startTime?: string | null | undefined;
 };
 
-
+// Define the props for the Day component
 type DayProps = {
     day: Dayjs;
     rowIdx: number;
     currentMonth: number;
 };
 
+// Define the types for global  context properties
 type GlobalContextType = {
     setDaySelected: (day: Dayjs) => void;
     setShowEventModal: (show: boolean) => void;
@@ -25,6 +27,8 @@ type GlobalContextType = {
     setSelectedEvent: (event: Event) => void;
 };
 
+
+// Define the Day component
 export default function Day({ day, rowIdx, currentMonth }: DayProps) {
     const [dayEvents, setDayEvents] = useState<Event[]>([]);
     const [visibleEvents, setVisibleEvents] = useState<Event[]>([]);
@@ -32,6 +36,7 @@ export default function Day({ day, rowIdx, currentMonth }: DayProps) {
     const [showOverflowModal, setShowOverflowModal] = useState(false);
     const dayContainerRef = useRef<HTMLDivElement | null>(null);
 
+    //
     const {
         setDaySelected,
         setShowEventModal,
@@ -39,6 +44,7 @@ export default function Day({ day, rowIdx, currentMonth }: DayProps) {
         setSelectedEvent,
     } = useContext(GlobalContext) as GlobalContextType;
 
+    //filter events based on day and sort them
     useEffect(() => {
         const events = filteredEvents.filter(
             (evt) => dayjs(evt.day).format('DD-MM-YY') === day.format('DD-MM-YY')
@@ -54,6 +60,7 @@ export default function Day({ day, rowIdx, currentMonth }: DayProps) {
         calculateVisibleEvents(events);
     }, [filteredEvents, day]);
 
+    //calculate visible events
     const calculateVisibleEvents = (events: Event[]) => {
         const maxVisible = 2; // Maximum number of visible events before showing "+ More"
         const visible = events.filter((evt) => !evt.startTime).slice(0, maxVisible);
@@ -63,12 +70,14 @@ export default function Day({ day, rowIdx, currentMonth }: DayProps) {
         setOverflowEvents(overflow);
     };
 
+    //add event on click
     const handleAddClick = (e: MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
         setDaySelected(day);
         setShowEventModal(true);
     };
 
+    
     return (
         <div
             className={`border border-gray-200 flex flex-col w-full h-32 group relative ${
@@ -76,12 +85,14 @@ export default function Day({ day, rowIdx, currentMonth }: DayProps) {
             }`}
             ref={dayContainerRef}
         >
+            {/*Day Header with day of week */}
             <header className="flex flex-col items-center justify-center relative h-12">
                 {rowIdx === 0 && (
                     <p className="text-xs text-gray-500 uppercase tracking-wide">
                         {day.format('ddd')}
                     </p>
                 )}
+                {/* Current Day Highlight */}
                 <p
                     className={`text-sm ${
                         dayjs().isSame(day, 'day')
@@ -96,7 +107,7 @@ export default function Day({ day, rowIdx, currentMonth }: DayProps) {
                 >
                     {day.format('DD')}
                 </p>
-
+                {/* Add Event Button  */}
                 <button
                     className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out absolute top-1 right-1"
                     onClick={handleAddClick}
@@ -113,6 +124,7 @@ export default function Day({ day, rowIdx, currentMonth }: DayProps) {
                     </svg>
                 </button>
             </header>
+            {/* Event list */}
             <div
                 className="flex-1 cursor-pointer"
                 onClick={() => {
@@ -137,6 +149,7 @@ export default function Day({ day, rowIdx, currentMonth }: DayProps) {
                             {evt.title}
                         </div>
                     ))}
+                    {/* button for showing more events if there are overflow events */}
                     {overflowEvents.length > 0 && (
                         <div className="flex justify-center mt-auto">
                             <button
@@ -150,6 +163,7 @@ export default function Day({ day, rowIdx, currentMonth }: DayProps) {
                             </button>
                         </div>
                     )}
+                    {/* bullet points if there are events */}
                     {dayEvents.some((evt) => evt.startTime) && (
                         <ul className="mt-2 list-none text-xs">
                             {dayEvents
@@ -176,6 +190,7 @@ export default function Day({ day, rowIdx, currentMonth }: DayProps) {
                                             }}
                                             className="cursor-pointer"
                                         >
+                                            {/*  */}
                                             <span
                                                 style={{
                                                     position: 'absolute',
@@ -204,6 +219,7 @@ export default function Day({ day, rowIdx, currentMonth }: DayProps) {
                     )}
                 </div>
             </div>
+            {/* Overflow Modal */}
             {showOverflowModal && (
                 <OverflowModal
                     events={dayEvents.filter((evt) => !evt.startTime)}

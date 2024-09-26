@@ -21,16 +21,16 @@ interface GlobalContextType {
 
 // Create the context with default values
 const GlobalContext = React.createContext<GlobalContextType>({
-    monthIndex: 0,
-    setMonthIndex: () => {},
-    daySelected: null,
-    setDaySelected: () => {},
-    showEventModal: false,
-    setShowEventModal: () => {},
-    dispatchedCalEvent: () => {},
-    savedEvents: [],
-    selectedEvent: null,
-    setSelectedEvent: () => {},
+    monthIndex: 0,// default value for monthIndex
+    setMonthIndex: () => {},// default value for setMonthIndex
+    daySelected: null,// default value for daySelected
+    setDaySelected: () => {},// default value for setDaySelected
+    showEventModal: false,// default value for showEventModal
+    setShowEventModal: () => {},// default value for setShowEventModal
+    dispatchedCalEvent: () => {},// default value for dispatchedCalEvent
+    savedEvents: [], //default empty array for savedEvents
+    selectedEvent: null, //default null for selectedEvent
+    setSelectedEvent: () => {}, //default value for setSelectedEvent
 });
 
 export default GlobalContext;
