@@ -51,16 +51,24 @@ Prerequisites!!!!!
 Before you dive in, make sure you’ve got the following installed on your machine:
 
 Node.js (v12 or higher)
-npm or yarn for managing dependencies
+npm for managing dependencies
 
 clone the repository with this :
-git clone https://github.com/your-username/calendar-app.git
-cd calendar-app
+git clone https://github.com/andreayasmine/Final.git
+
+cd final
 
 install dependencies:
 npm install
+npm install -D tailwindcss
+npx tailwindcss init
+npm add dayjs
+npm add react-transition-group
 
-then run----- npm start
+then run-----
+npm start
+or
+npm run dev
 
 How to Use
 \*Navigating: Use the buttons in the header to move between months or jump back to the current date.
