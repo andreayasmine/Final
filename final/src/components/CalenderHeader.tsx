@@ -15,7 +15,8 @@ type GlobalContextType = {
 export default function CalenderHeader() {
 
     //grabs current month and function to update it
-    const { monthIndex, setMonthIndex } = useContext(GlobalContext) as GlobalContextType;
+    const { monthIndex, setMonthIndex } = 
+    useContext(GlobalContext) as GlobalContextType;
 
     //moves to previous month
     function handlePrevMonth() {
@@ -37,20 +38,27 @@ export default function CalenderHeader() {
     //buttons to move to next and previous month
     return (
         <header className="px-4 py-2 flex items-center pl-40 pt-10">
-            <button onClick={handleReset} className="border rounded py-2 px-4 mr-5">
+            <button onClick={handleReset} 
+            className="border rounded py-2 px-4 mr-5">
                 Today
             </button>
             <button onClick={handlePrevMonth}>
-                <span className="material-icons-outlined cursor-pointer text-gray-600 mx-2">
+                <span 
+                className=
+                "material-icons-outlined cursor-pointer text-gray-600 mx-2">
                     chevron_left
                 </span>
             </button>
             <button onClick={handleNextMonth}>
-                <span className="material-icons-outlined cursor-pointer text-gray-600 mx-2">
+                <span 
+                className=
+                "material-icons-outlined cursor-pointer text-gray-600 mx-2">
                     chevron_right
                 </span>
             </button>
-            <h2 className="ml-4 text-xl text-black-500 font-bold">
+            <h2 
+            className=
+            "ml-4 text-xl text-black-500 font-bold">
                 {dayjs(new Date(dayjs().year(), monthIndex)).format('MMMM YYYY')}
             </h2>
         </header>

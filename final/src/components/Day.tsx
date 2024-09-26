@@ -80,21 +80,28 @@ export default function Day({ day, rowIdx, currentMonth }: DayProps) {
     
     return (
         <div
-            className={`border border-gray-200 flex flex-col w-full h-32 group relative ${
+            className=
+            {`border border-gray-200 flex flex-col w-full h-32 group relative ${
                 day.month() === currentMonth ? 'bg-white' : 'bg-gray-100'
             }`}
             ref={dayContainerRef}
         >
+
             {/*Day Header with day of week */}
-            <header className="flex flex-col items-center justify-center relative h-12">
+            <header
+             className=
+             "flex flex-col items-center justify-center relative h-12">
                 {rowIdx === 0 && (
-                    <p className="text-xs text-gray-500 uppercase tracking-wide">
+                    <p 
+                    className=
+                    "text-xs text-gray-500 uppercase tracking-wide">
                         {day.format('ddd')}
                     </p>
                 )}
                 {/* Current Day Highlight */}
                 <p
-                    className={`text-sm ${
+                    className=
+                    {`text-sm ${
                         dayjs().isSame(day, 'day')
                             ? 'bg-blue-600 text-white rounded-full w-7 h-7 flex items-center justify-center'
                             : ''
@@ -109,7 +116,8 @@ export default function Day({ day, rowIdx, currentMonth }: DayProps) {
                 </p>
                 {/* Add Event Button  */}
                 <button
-                    className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out absolute top-1 right-1"
+                    className=
+                    "opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out absolute top-1 right-1"
                     onClick={handleAddClick}
                 >
                     <svg
@@ -120,7 +128,9 @@ export default function Day({ day, rowIdx, currentMonth }: DayProps) {
                         stroke="currentColor"
                         className="w-4 h-4 text-gray-500"
                     >
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                        <path strokeLinecap="round" 
+                        strokeLinejoin="round" 
+                        d="M12 4.5v15m7.5-7.5h-15" />
                     </svg>
                 </button>
             </header>

@@ -103,29 +103,36 @@ export default function EventModal() {
             unmountOnExit
         >
             {/* modal for creating editing events */}
-            <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
-                <form className="bg-white rounded-lg shadow-lg w-10/12 max-w-sm p-4" onSubmit={handleSubmit}>
-                    <header className="flex justify-between items-center mb-4">
-                        <div className="flex items-center">
+            <div className=
+            "fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
+                <form className=
+                "bg-white rounded-lg shadow-lg w-10/12 max-w-sm p-4" onSubmit={handleSubmit}>
+                    <header className=
+                    "flex justify-between items-center mb-4">
+                        <div className=
+                        "flex items-center">
                             {/* Button to submit the form (either add or edit) */}
                             {selectedEvent ? (
                                 <button 
                                     type="submit"
-                                    className="px-4 py-2 rounded text-xl font-semibold mr-2 w-full"
+                                    className=
+                                    "px-4 py-2 rounded text-xl font-semibold mr-2 w-full"
                                 >
                                     Edit Event
                                 </button>
                             ) : (
                                 <button 
                                     type="submit"
-                                    className="px-4 py-2 rounded text-xl font-semibold mr-2 w-full"
+                                    className=
+                                    "px-4 py-2 rounded text-xl font-semibold mr-2 w-full"
                                 >
                                     Add Event
                                 </button>
                             )}
                         </div>
                         {/* Display selected day */}
-                        <p className="text-sm" style={{ color: '#555' }}>
+                        <p className=
+                        "text-sm" style={{ color: '#555' }}>
                             {daySelected.format("MM/DD/YY")}
                         </p>
                         {/* close button */}
@@ -141,7 +148,8 @@ export default function EventModal() {
                         {/*  */}
                         <div className="grid gap-y-4">
                             <div className="mb-4">
-                                <label className="block text-sm font-medium" style={{ color: '#777' }}>
+                                <label className="block text-sm font-medium" 
+                                style={{ color: '#777' }}>
                                     Name
                                 </label>
                                 <input 
@@ -161,9 +169,12 @@ export default function EventModal() {
                                     type="checkbox"
                                     checked={isAllDay}
                                     onChange={(e) => setIsAllDay(e.target.checked)}
-                                    className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                                    className=
+                                    "h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                                 />
-                                <label htmlFor="allDay" className="ml-2 block text-sm font-medium" style={{ color: '#777' }}>
+                                <label htmlFor="allDay"
+                                 className="ml-2 block text-sm font-medium"
+                                  style={{ color: '#777' }}>
                                     All Day?
                                 </label>
                             </div>
@@ -171,7 +182,8 @@ export default function EventModal() {
                             {!isAllDay && (
                                 <div className="grid grid-cols-2 gap-2">
                                     <div>
-                                        <label className="block text-sm font-medium" style={{ color: '#777' }}>
+                                        <label className="block text-sm font-medium"
+                                         style={{ color: '#777' }}>
                                             Start Time
                                         </label>
                                         <input
@@ -185,7 +197,8 @@ export default function EventModal() {
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-medium" style={{ color: '#777' }}>
+                                        <label className="block text-sm font-medium" 
+                                        style={{ color: '#777' }}>
                                             End Time
                                         </label>
                                         <input
@@ -206,11 +219,13 @@ export default function EventModal() {
                                     <span 
                                         key={i}
                                         onClick={() => setSelectedLabel(label.color)}
-                                        className="w-6 h-6 flex items-center justify-center cursor-pointer rounded-md"
+                                        className=
+                                        "w-6 h-6 flex items-center justify-center cursor-pointer rounded-md"
                                         style={{ backgroundColor: label.color }}
                                     >
                                         {selectedLabel === label.color && (
-                                            <span className="material-icons-outlined text-white text-sm">
+                                            <span 
+                                            className="material-icons-outlined text-white text-sm">
                                                 check
                                             </span>
                                         )}
