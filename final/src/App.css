@@ -1,3 +1,8 @@
+:root {
+  --primary-bg: #282c34;
+  --primary-color: #61dafb;
+}
+
 .App {
   text-align: center;
 }
@@ -9,12 +14,12 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+      animation: App-logo-spin infinite 20s linear;
   }
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: var(--primary-bg);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -25,24 +30,27 @@
 }
 
 .App-link {
-  color: #61dafb;
+  color: var(--primary-color);
+}
+
+.App-link:hover {
+  color: lighten(var(--primary-color), 10%);
+  text-decoration: underline;
 }
 
 @keyframes App-logo-spin {
   from {
-    transform: rotate(0deg);
+      transform: rotate(0deg);
   }
   to {
-    transform: rotate(360deg);
+      transform: rotate(360deg);
   }
 }
-
-/* Add this to app.css */
 
 /* Modal enter transition styles */
 .modal-enter {
   opacity: 0;
-  transform: translateY(4px); /* Tailwind's `translate-y-1` value */
+  transform: translateY(10px);
 }
 .modal-enter-active {
   opacity: 1;
@@ -50,35 +58,12 @@
   transition: opacity 300ms ease-out, transform 300ms ease-out;
 }
 
-/* Modal exit transition styles */
 .modal-exit {
   opacity: 1;
   transform: translateY(0);
 }
 .modal-exit-active {
   opacity: 0;
-  transform: translateY(4px); /* Tailwind's `translate-y-1` value */
+  transform: translateY(10px);
   transition: opacity 300ms ease-out, transform 300ms ease-out;
 }
-
-
-/* Animation for modal opening and closing */
-.modal-enter {
-  opacity: 0;
-  transform: scale(0.9);
-}
-.modal-enter-active {
-  opacity: 1;
-  transform: scale(1);
-  transition: opacity 300ms, transform 300ms;
-}
-.modal-exit {
-  opacity: 1;
-  transform: scale(1);
-}
-.modal-exit-active {
-  opacity: 0;
-  transform: scale(0.9);
-  transition: opacity 300ms, transform 300ms;
-}
-

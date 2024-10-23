@@ -1,31 +1,26 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import { getMonth } from './util';
 import CalenderHeader from './components/CalenderHeader';
 import Month from './components/Month';
-import GlobalContext from './context/GlobalContext';
 import EventModal from './components/EventModal';
+import { useGlobalContext } from './context/GlobalContext';
 import dayjs from 'dayjs'; // Import dayjs
 
-// Define the App component
 const App: React.FC = () => {
-  //initialize state for month 
-  const [currentMonth, setCurrentMonth] = useState<dayjs.Dayjs[][]>(getMonth()); // getMonth() assumed to return 2D array of dayjs objects
-  const { monthIndex, showEventModal } = useContext(GlobalContext);
+  const [currentMonth, setCurrentMonth] = useState<dayjs.Dayjs[][]>(getMonth());
+  const { monthIndex, showEventModal } = useGlobalContext();
 
-  //update state when monthIndex changes
   useEffect(() => {
     setCurrentMonth(getMonth(monthIndex));
   }, [monthIndex]);
 
   return (
     <React.Fragment>
-      {showEventModal && <EventModal />} {/* if true, display the modal */}
-      <div className="min-h-screen w-full max-w-custom mx-auto">
+      {showEventModal && <EventModal />} {/* Display EventModal when true */}
+      <div className="min-h-screen h-screen w-full max-w-[1500px] mx-auto flex flex-col px-0 sm:px-[50px] lg:px-[200px]">
         <CalenderHeader />
-        {/* Calendar container for navigation */}
-        <div className="flex flex-1">
-          {/* Calendar container, 7 columns for days of weekm 5 rows for weeks  */}
+        <div className="flex flex flex-col overflow-hidden h-full">
           <Month month={currentMonth} />
         </div>
       </div>
@@ -34,3 +29,4 @@ const App: React.FC = () => {
 };
 
 export default App;
+  

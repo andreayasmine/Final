@@ -66,8 +66,6 @@ npm add dayjs
 npm add react-transition-group
 
 then run-----
-npm start
-or
 npm run dev
 
 How to Use
